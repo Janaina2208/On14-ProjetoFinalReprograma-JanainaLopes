@@ -150,6 +150,9 @@ Bairro para retirada: String
 Nome: String
 Telefone: String
 
+## Melhorias para o futuro
+
+<img src="./assets/janainaLopes.jpg" width="100%">
 💬 Para entrar em contato seguem os canais abaixo.
 📫 email: janaina.dev@yahoo.com
 ☎ telefone/whatsapp: (71) 99122-6375
