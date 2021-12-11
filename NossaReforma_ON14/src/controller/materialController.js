@@ -3,27 +3,16 @@ const MaterialSchema = require('../model/materialSchema')
 const mongoose = require('mongoose')
 //CRUD --> CREATE - READ - UPDATE - DELETE
 //POST - "/doacao"
-const createdonations = async (req, res) => {
+const createDonations = async (req, res) => {
     try {
         const newDonation = new MaterialSchema({
             _id: new mongoose.Types.ObjectId(),
-            Finalizado: req.body.Finalizado,
-            // Material doação: Boolean por itens, não posso colocar tipo uma divisão???????<<<<<<<<<<<<<<<<<<<<<
-            Argamassas: req.body.Argamassas,
-            Cimento: req.body.Cimento,
-            Fixadores: req.body.Fixadores,
-            Madeiramento: req.body.Madeiramento,
-            materiaisHidraulicos: req.body.materiaisHidraulicos,
-            materiaisEletricos: req.body.materiaisEletricos,
-            pisosERevestimentos: req.body.pisosERevestimentos,
-            Telha: req.body.Telha,
-            Tijolo: req.body.Tijolo,
-            Tinta: req.body.Tinta,
-            outrosMateriais: req.body.outrosMateriais,
+            finalizado: req.body.Finalizado,
+            material: req.body.material,
             quantidadeDeMaterial: req.body.quantidadeDeMaterial,
             bairroRetirada: req.body.bairroRetirada,
-            Nome: req.body.Nome,
-            Telefone: req.body.Telefone
+            nome: req.body.Nome,
+            telefone: req.body.Telefone
         })
 
         const donationSaved = await newDonation.save()
@@ -85,65 +74,79 @@ const getAll = async (req, res) => {
 //     })
 //     }
 //GET /:id - "/material"
+// const materialByName = (req, res) => {
+//     const {Argamassas, Cimento, Fixadores, Madeiramento, materiaisHidraulicos, materiaisEletricos, pisosERevestimentos, Telha, Tijolo, Tinta, outrosMateriais} = req.query
+//     try{
+//         Roles
+//             .findOne({
+//                 Argamassas,
+//                 Cimento,
+//                 Fixadores,
+//                 Madeiramento,
+//                 materiaisHidraulicos,
+//                 materiaisEletricos,
+//                 pisosERevestimentos,
+//                 Telha,
+//                 Tijolo,
+//                 Tinta,
+//                 outrosMateriais,
+//                 active: true
+//             },
+//             then(data => {
+//                 res.status(200).send({
+//                     message: 'Material encontrado! Veja a listagem abaixo!',
+//                     body: data
+//                 })
+//             }))
+//     } catch(error) {
+//             response.status(400).json({
+//                 message:error.message
+//             })
+//     }
+
 const getByMaterial = async (req, res) => {
-    // const {Argamassas, Cimento, Fixadores, Madeiramento, materiaisHidraulicos, materiaisEletricos, pisosERevestimentos, Telha, Tijolo, Tinta, outrosMateriais} = req.query
-    try{
-        // const foundUser = User.findOne ({ "email" : req.body.email }
+    try {
+        const materialFound = req.query.material;
+        const donation = await MaterialSchema.find({materialFound})
+    
+        return res.status(200).send({
+            message: 'Material encontrado! Veja a listagem abaixo!',
+            body: donation
+        })
+    } catch(e) {
+        return res.status(400).json({
+            message:error.message
+        })
+    }
 
-        const materialFound = await MaterialSchema.findOne({
-            "Argamassas": req.query.Argamassas},
-            {" Cimento": req.query.Cimento},
-            {"Fixadores": req.query.Fixadores},
-            {"Madeiramento": req.query.Madeiramento}
-                            // materiaisHidraulicos,
-                            // materiaisEletricos,
-                            // pisosERevestimentos,
-                            // Telha,
-                            // Tijolo,
-                            // Tinta,
-                            // active: true
-            ).exec()
-
-                res.status(200).send({
-                    message: 'Material encontrado! Veja a listagem abaixo!',
-                    body: materialFound
-                })
-            
-    } catch(error) {
-            res.status(400).json({
-                message:error.message
-            })
-    }}
-
-// const getByMaterial = async (req, res) => {
-//     const {Argamassas, Cimento, Fixadores, Madeiramento, materiaisHidraulicos, materiaisEletricos, pisosERevestimentos, Telha, Tijolo, Tinta} = req.query
-//         try{
-//             const materialFound = await MaterialSchema.findOne({
-//                     Argamassas,
-//                     Cimento,
-//                     Fixadores,
-//                     Madeiramento,
-//                     materiaisHidraulicos,
-//                     materiaisEletricos,
-//                     pisosERevestimentos,
-//                     Telha,
-//                     Tijolo,
-//                     Tinta,
-//                     active: true
-//                 })
-//                 console.log(materialFound)
-//                     res.status(200).send({
-//                         message: 'Material encontrado! Veja a listagem abaixo!',
-//                         body: materialFound
-//                     })
-//                 }
+    // const {Argamassas, Cimento, Fixadores, Madeiramento, materiaisHidraulicos, materiaisEletricos, pisosERevestimentos, Telha, Tijolo, Tinta} = req.query
+    //     try{
+    //         const materialFound = await MaterialSchema.find({
+    //                 Argamassas,
+    //                 Cimento,
+    //                 Fixadores,
+    //                 Madeiramento,
+    //                 materiaisHidraulicos,
+    //                 materiaisEletricos,
+    //                 pisosERevestimentos,
+    //                 Telha,
+    //                 Tijolo,
+    //                 Tinta,
+    //                 active: true
+    //             })
+    //                 res.status(200).send({
+    //                     message: 'Material encontrado! Veja a listagem abaixo!',
+    //                     body: materialFound
+    //                 })
+    //             }
                 
                 
-//         catch(error) {
-//                 res.status(400).json({
-//                     message:error.message
-//                 })
-//         }}
+    //     catch(error) {
+    //             res.status(400).json({
+    //                 message:error.message
+    //             })
+    //     }
+    }
 
 //PUT /:id - "/atualiza"
 const updateDoacoesById = async (req, res) => {
@@ -199,7 +202,7 @@ const deleteDoacao = async (req, res) => {
 
 module.exports = {
     getAll,
-    createdonations,
+    createDonations,
     updateDoacoesById,
     deleteDoacao,
     getByMaterial
