@@ -10,7 +10,7 @@ router.get("/todos", controller.getAll)
 router.get("/buscar", controller.getByMaterial)
 
 //POST - "/doacao"
-router.post("/doacao", controller.createdonations)
+router.post("/doacao", controller.createDonations)
 
 //PUT /:id - "/atualiza"
 router.patch("/atualiza/:id", controller.updateDoacoesById)

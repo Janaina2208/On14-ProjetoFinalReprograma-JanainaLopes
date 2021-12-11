@@ -1,69 +1,31 @@
 const mongoose = require('mongoose')
 const materialSchema = new mongoose.Schema({
     id: mongoose.Schema.Types.ObjectId,
-    Finalizado: {
+    finalizado: {
         type: Boolean,
         required: true
     },
-    // Material doação: Boolean por itens, não posso colocar tipo uma divisão???????<<<<<<<<<<<<<<<<<<<<<
-    Argamassas: {
-        type: Boolean,
-        default: false
-    },
-    Cimento: {
-        type: Boolean,
-        default: false
-    },
-    Fixadores: {
-        type: Boolean,
-        default: false
-    },
-    Madeiramento: {
-        type: Boolean,
-        default: false
-    },
-    materiaisHidraulicos: {
-        type: Boolean,
-        default: false
-    },
-    materiaisEletricos: {
-        type: Boolean,
-        default: false
-    },
-    pisosERevestimentos: {
-        type: Boolean,
-        default: false
-    },
-    Telha: {
-        type: Boolean,
-        default: false
-    },
-    Tijolo: {
-        type: Boolean,
-        default: false
-    },
-    Tinta: {
-        type: Boolean,
-        default: false
-    },
-    outrosMateriais: {
-        type: [String],
-        default: false
+    // Sugestão: no seu banco possuir apenas um campo de "material" e, no frontend, 
+    // as opções serem adicionadas. Para cada material a ser doado, a pessoa deve fazer uma solicitação 
+    // e isso terá um registro no banco
+    material: {
+        type: String,
+        required: false
     },
     quantidadeDeMaterial: {
-        type: [String],
+        type: String,
         default: true
     },
     bairroRetirada: {
         type: String,
         required: true
     },
-    Nome: {
+    nome: {
         type: String,
         required: true,
         unique: true
     },
-    Telefone: {
+    telefone: {
         type: String,
         required: true,
         unique: true
